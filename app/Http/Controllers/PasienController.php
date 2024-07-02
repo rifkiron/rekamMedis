@@ -54,22 +54,23 @@ class PasienController extends Controller
         $validated = $request->validate([
             'kode_rekam_medis' => 'required|unique:pasien', 
             'nama' => 'required',
-            'jkl' => 'required',
-            'email' => 'required|email|unique:pasien',
+            'usia' => 'required',
+            'bidang' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
+            'tgl_daftar' =>'required|date',
         ],
 
         [
             'kode_rekam_medis.required' => 'Form ini harus diisi !',
             'kode_rekam_medis.unique' => 'ID Rekam Medis sudah terdaftar !',
             'nama.required' => 'Form ini harus diisi !',
-            'jkl.required' => 'Form ini harus diisi !',
-            'email.required' => 'Form ini harus diisi !',
-            'email.email' => 'Format email salah !',
-            'email.unique' => 'Email sudah terdaftar !',
+            'usia.required' => 'Form ini harus diisi !',
+            'bidang.required' => 'Form ini harus diisi !',
             'no_hp.required' => 'Form ini harus diisi !',
             'alamat.required' => 'Form ini harus diisi !',
+            'tgl_daftar.required' => 'Form ini harus diisi !',
+            
         ]);
     }
 
@@ -77,16 +78,20 @@ class PasienController extends Controller
         // validasi inputan dari form
         $validated = $request->validate([
             'nama' => 'required',
-            'jkl' => 'required',
+            'usia' => 'required',
+            'bidang' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
+            'tgl_daftar' =>'required|date',
         ],
 
         [
             'nama.required' => 'Form ini harus diisi !',
-            'jkl.required' => 'Form ini harus diisi !',
+            'usia.required' => 'Form ini harus diisi !',
+            'bidang.required' => 'Form ini harus diisi !',
             'no_hp.required' => 'Form ini harus diisi !',
             'alamat.required' => 'Form ini harus diisi !',
+            'tgl_daftar.required' => 'Form ini harus diisi !',
         ]);
     }
 
@@ -98,10 +103,11 @@ class PasienController extends Controller
         $pasien = new Pasien;
         $pasien->kode_rekam_medis = $request->kode_rekam_medis;
         $pasien->nama = $request->nama;
-        $pasien->jkl = $request->jkl;
-        $pasien->email = $request->email;
+        $pasien->usia = $request->usia;
+        $pasien->bidang = $request->bidang;
         $pasien->no_hp = $request->no_hp;
         $pasien->alamat = $request->alamat;
+        $pasien->tgl_daftar = $request->tgl_daftar;
         $pasien->created_at = $current_date_time;
         $pasien->updated_at = $current_date_time;
         $pasien->save();
@@ -142,7 +148,7 @@ class PasienController extends Controller
     public function update(Request $request, $id)
     {
         $this->_validation_update($request);
-        Pasien::where('id', $id)->update(['kode_rekam_medis' => $request->kode_rekam_medis, 'nama' => $request->nama, 'jkl' => $request->jkl, 'email' => $request->email, 'no_hp' => $request->no_hp, 'alamat' => $request->alamat]);
+        Pasien::where('id', $id)->update(['kode_rekam_medis' => $request->kode_rekam_medis, 'nama' => $request->nama, 'usia' => $request->usia, 'bidang' => $request->bidang, 'no_hp' => $request->no_hp, 'alamat' => $request->alamat, 'tgl_daftar' => $request->tgl_daftar]);
         return redirect()->route('pasien.index')->with('update_berhasil', 'Update Data Berhasil'); 
     }
 

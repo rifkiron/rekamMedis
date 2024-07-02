@@ -46,11 +46,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Id Pasien</th>
                                 <th>Nama Pasien</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Email</th>
+                                <th>Usia</th>
                                 <th>No Handphone</th>
                                 <th>Alamat</th>
+                                <th>Bidang</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -58,11 +59,12 @@
                             @foreach ($pasien as $no => $data)
                             <tr>
                                 <td>{{ $no+1 }}</td>
+                                <td>{{$data->id}}</td>
                                 <td>{{ $data->nama }}</td>
-                                <td>{{ $data->jkl }}</td>
-                                <td>{{ $data->email }}</td>
+                                <td>{{ $data->usia }}</td>
                                 <td>{{ $data->no_hp }}</td>
                                 <td>{{ $data->alamat }}</td>
+                                <td>{{ $data->bidang }}</td>
                                 <td class="text-left">
                                     <a href="{{ route('pasien.edit', $data->id) }}" class="badge badge-warning btn-edit">Edit</a>
                                     <a href="#" data-id="{{ $data->id }}" class="badge badge-danger swal-confirm">

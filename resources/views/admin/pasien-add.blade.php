@@ -22,7 +22,7 @@
             <label>ID Rekam Medis 
               @error('kode_rekam_medis') <b @error('kode_rekam_medis') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
             </label>
-            <input type="text" name="kode_rekam_medis" value="" class="form-control" disabled>
+            <input type="text" name="kode_rekam_medis" value="" class="form-control">
           </div>
           <div class="form-group">
             <label>Nama Pasien 
@@ -31,21 +31,11 @@
             <input type="text" name="nama" value="" class="form-control">
           </div> 
           <div class="form-group">
-            <label>Jenis Kelamin
-                @error('jkl') <b @error('jkl') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
-              </label>
-            <select name="jkl" class="form-control">
-                <option value="" hidden>Pilih Jenis Kelamin Pasien !</option>
-                <option name="jkl" value="Laki-Laki">Laki-Laki</option>
-                <option name="jkl" value="Perempuan">Perempuan</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Email 
-              @error('email') <b @error('email') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
+            <label>Usia
+                @error('usia') <b @error('usia') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
             </label>
-            <input type="text" name="email" value="" class="form-control">
-          </div>  
+            <input type="text" name="usia" value="" class="form-control">
+          </div>
           <div class="form-group">
               <label>No. Handphone 
                 @error('no_hp') <b @error('no_hp') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
@@ -58,6 +48,18 @@
             </label>
             <input type="text" name="alamat" value="" class="form-control">
           </div>
+          <div class="form-group">
+            <label>Bidang 
+              @error('bidang') <b @error('bidang') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
+            </label>
+            <input type="text" name="bidang" value="" class="form-control">
+          </div>  
+          <div class="form-group">
+            <label>Tanggal Daftar 
+              @error('bidang') <b @error('bidang') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
+            </label>
+            <input type="date" name="tgl_daftar" value="" class="form-control">
+          </div> 
             <button type="button" class="btn btn-warning"><a class="text-white" style="text-decoration: none" href="{{ route('pasien.index')}}">Kembali</a></button>
             <button type="submit" class="btn btn-primary">Simpan</button>
           </form>
