@@ -22,7 +22,7 @@ class RekamController extends Controller
     {
         Rfid::truncate();
         $rekam = Rekam_Medis::get();
-        return view('admin.rekam_medis_rfid', ['rekam' => $rekam]);
+        return view('admin.rekam-medis-detail', ['rekam' => $rekam]);
     } 
 
     /**

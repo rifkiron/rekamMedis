@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
                 <a href="{{ route('pasien.pdf') }}" class="btn btn-primary">Download PDF</a>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">Tambah Data</button>
+                <a href="{{ route('pasien.create') }}" class="btn btn-primary">Tambah Data</a>
             </div>
             <div class="col-12">
                 <hr>
