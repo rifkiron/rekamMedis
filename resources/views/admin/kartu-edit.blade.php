@@ -25,7 +25,7 @@
                 <select name="pasien_id" class="form-control">
                   <option value="" hidden>Pilih Pasien !</option>
                   @foreach ($pasien as $data_pasien)
-                    <option name="pasien_id" value="{{ $data_pasien->id }}" @if(old('pasien_id') == "{{ $data_pasien->id }}") selected @endif>{{ $data_pasien->nama }}</option>
+                    <option value="{{ $data_pasien->id }}" {{ $kartu->pasien->id ==  $data_pasien->id ? 'selected' : '' }}>{{  $data_pasien->nama }}</option>
                   @endforeach
                 </select>
             </div>
@@ -33,10 +33,10 @@
                 <label>Kode Kartu 
                     @error('kode_kartu') <b @error('kode_kartu') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
                 </label>
-                <input type="text" id="getUID" name="kode_kartu"  class="form-control" readonly>
+                <input type="text" id="getUID" value="{{$kartu->kode_kartu}}" name="kode_kartu"  class="form-control" readonly>
             </div> 
         
-            <button type="button" class="btn btn-warning"><a class="text-white" style="text-decoration: none" href="{{ route('kartu_pasien.index')}}">Kembali</a></button>
+            <button type="button" class="btn btn-warning"><a class="text-white" style="text-decoration: none" href="{{ route('kartu.index')}}">Kembali</a></button>
             <button type="submit" class="btn btn-primary">Update</button>
           </form>
         </div>
@@ -49,24 +49,22 @@
 
 @push('page-scripts')
 <script>
-    $(document).ready(function(){
-        var rfid="";
-        //realtime get data from file rfid.blade.php
-        setInterval(function() {
-            $.ajax({
-            async: false,
-            cache: false,
-            url: `rfid/get_rfid`, 
+   $(document).ready(function(){
+    setInterval(function() {
+        $.ajax({
+            url: 'rfid/get_rfid', 
             type: "GET",
-            dataType:"text",
-            success: function(data) { 
-                rfid = data;
+            dataType: "json",
+            success: function(response) {
+                console.log('rfid', response.rfid);
+                $("#getUID").val(response.rfid);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', status, error);
             }
         });
-            $("#getUID").val(rfid);
-		}, 500);
-
-    });
+    }, 500);
+});
 </script>
 @endpush
 

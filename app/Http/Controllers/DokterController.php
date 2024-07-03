@@ -42,7 +42,7 @@ class DokterController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'spesialis' => 'required',
-            'email' => 'required|email|unique:pasien',
+            'email' => 'required|email|unique:dokter',
             'no_hp' => 'required',
             'alamat' => 'required',
         ],

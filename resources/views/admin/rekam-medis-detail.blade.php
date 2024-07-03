@@ -51,32 +51,32 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-4 font-weight-bold label-col">Id Pasien :</div>
-                            <div class="col-8">5b1fcf2ba0</div>
+                            <div class="col-8">{{$kartu_pasien->pasien->id}}</div>
                         </div>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-4 font-weight-bold label-col">Nama Pasien :</div>
-                            <div class="col-8">5b1fcf2ba0</div>
+                            <div class="col-8">{{$kartu_pasien->pasien->nama}}</div>
                         </div>
                         <hr>
                         <div class="row mb-2">
-                            <div class="col-4 font-weight-bold label-col">Jenis Kelamin :</div>
-                            <div class="col-8">5b1fcf2ba0</div>
-                        </div>
-                        <hr>
-                        <div class="row mb-2">
-                            <div class="col-4 font-weight-bold label-col">Email :</div>
-                            <div class="col-8">5b1fcf2ba0</div>
+                            <div class="col-4 font-weight-bold label-col">Usia :</div>
+                            <div class="col-8">{{$kartu_pasien->pasien->usia}}</div>
                         </div>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-4 font-weight-bold label-col">No Hp :</div>
-                            <div class="col-8">5b1fcf2ba0</div>
+                            <div class="col-8">{{$kartu_pasien->pasien->no_hp}}</div>
                         </div>
                         <hr>
                         <div class="row mb-2">
                             <div class="col-4 font-weight-bold label-col">Alamat :</div>
-                            <div class="col-8">5b1fcf2ba0</div>
+                            <div class="col-8">{{$kartu_pasien->pasien->alamat}}</div>
+                        </div>
+                        <hr>
+                        <div class="row mb-2">
+                            <div class="col-4 font-weight-bold label-col">Bidang :</div>
+                            <div class="col-8">{{$kartu_pasien->pasien->bidang}}</div>
                         </div>
                     </div>
                 </div>
@@ -90,10 +90,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button type="button" class="btn btn-primary">+ Tambah Data Rekam Medis</button>
-                            </div>
-                            <div class="col-lg-6 text-right">
-                                <button type="button" class="btn btn-success">Cetak Data Rekam Medis</button>
+                                <a class="btn btn-primary" href="{{ route('rekam_medis.create') }}">+ Tambah Data Rekam Medis</a>
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -102,25 +99,31 @@
                                     <table id="table_id" class="text-center table table-striped">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Id Rekam Medis</th>
                                                 <th>Keluhan</th>
                                                 <th>Diagnosa</th>
                                                 <th>Obat</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Tanggal</th>
-                                                <th>Tempat</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($rekam as $no => $data)
                                             <tr>
+                                                <td>{{ $no+1 }}</td>
                                                 <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{$data->keluhan}}</td>
+                                                <td>{{$data->diagnosa}}</td>
+                                                <td>  
+                                                    @foreach (json_decode($data->obat_id) as $value)
+                                                        {{ $value }},
+                                                    @endforeach
+                                                </td>
+                                                <td>{{$data->dokter->nama}}</td>
+                                                <td>{{$data->tgl_periksa}}</td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

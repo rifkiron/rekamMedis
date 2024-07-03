@@ -58,7 +58,7 @@
                                 <td>{{ $data->nama }}</td>
                                 <td>{{ $data->harga }}</td>
                                 <td>{{ $data->keterangan }}</td>
-                                <td class="text-left">
+                                <td class="text-center">
                                     <a href="{{ route('obat.edit', $data->id) }}" class="badge badge-warning btn-edit">Edit</a>
                                     <a href="#" data-id="{{ $data->id }}" class="badge badge-danger swal-confirm">
                                         <form action="{{ route('obat.destroy', $data->id) }}" id="delete{{ $data->id }}" method="POST">

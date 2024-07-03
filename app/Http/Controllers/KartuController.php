@@ -97,8 +97,8 @@ class KartuController extends Controller
     public function edit($id)
     {
         $pasien = Pasien::get();
-        $kartu = Kartu_Pasien::find($id);
-        return view('admin.kartu-edit', ['kartu' => $kartu, 'pasien' => $pasien]);
+        $kartu = Kartu_Pasien::with('pasien')->where('id', $id)->first();
+        return view('admin.kartu-edit', ['kartu' => $kartu , 'pasien' => $pasien]);
     }
 
     /**
@@ -133,7 +133,7 @@ class KartuController extends Controller
       {
         // ambil data terbaru
         $rfid = Rfid::latest()->first();
-        return view('admin.rfid', ['rfid' => $rfid]);
+        return response()->json(['rfid' => $rfid->rfid]);
       }
 
       //get data rfid
@@ -141,7 +141,7 @@ class KartuController extends Controller
       {
         // ambil data terbaru
         $rfid = Rfid::latest()->first();
-        return view('admin.rfid', ['rfid' => $rfid]);
+        return response()->json(['rfid' => $rfid->rfid]);
       }
 
 }

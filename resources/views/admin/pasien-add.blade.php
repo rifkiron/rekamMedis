@@ -19,12 +19,6 @@
         <div class="col-md-12"> 
           <input type="hidden" name="id" value="" id="id_update">
           <div class="form-group">
-            <label>ID Rekam Medis 
-              @error('kode_rekam_medis') <b @error('kode_rekam_medis') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
-            </label>
-            <input type="text" name="kode_rekam_medis" value="" class="form-control">
-          </div>
-          <div class="form-group">
             <label>Nama Pasien 
               @error('nama') <b @error('nama') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
             </label>

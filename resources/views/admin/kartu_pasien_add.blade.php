@@ -33,7 +33,7 @@
                   <label>Kode Kartu (Silahkan Scan Kartu !)
                     @error('kode_kartu') <b @error('kode_kartu') class="text-danger" @enderror> {{ "(".$message.")" }} </b> @enderror
                   </label>
-                  <input type="text" id="getUID" name="kode_kartu" class="form-control" readonly>
+                  <input type="text" id="getUID" name="kode_kartu" value="" class="form-control" readonly>
                 </div>   
               </div>
             </div>
@@ -53,23 +53,21 @@
 @push('page-scripts')
 <script>
     $(document).ready(function(){
-        var rfid="";
-        //realtime get data from file rfid.blade.php
-        setInterval(function() {
-            $.ajax({
-            async: false,
-            cache: false,
-            url: `rfid/get_rfid`, 
+    setInterval(function() {
+        $.ajax({
+            url: 'rfid/get_rfid', 
             type: "GET",
-            dataType:"text",
-            success: function(data) { 
-                rfid = data;
+            dataType: "json",
+            success: function(response) {
+                console.log('rfid', response.rfid);
+                $("#getUID").val(response.rfid);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', status, error);
             }
         });
-            $("#getUID").val(rfid);
-		}, 500);
-
-    });
+    }, 500);
+});
 </script>
 @endpush
 

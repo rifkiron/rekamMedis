@@ -25,6 +25,19 @@ class RekamController extends Controller
         return view('admin.rekam_medis', ['rekam' => $rekam]);
     } 
 
+    public function detail()
+    {
+        Rfid::truncate();
+        $tipe = 'detail';
+        return view('admin.rekam_medis_rfid',['tipe' => $tipe]);
+    }
+
+    public function detail_rfid(){
+        $rfid_check = Rfid::latest()->first();
+        $kartu_pasien = Kartu_Pasien::with('pasien')->where('kode_kartu', $rfid_check->rfid)->first();
+        $rekam = Rekam_Medis::with('dokter')->where('kartu_pasien_id', $kartu_pasien->id)->get();
+        return view('admin.rekam-medis-detail', ['rekam' => $rekam, 'kartu_pasien' => $kartu_pasien]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,17 +45,17 @@ class RekamController extends Controller
      */
     public function create()
     {
-        return view('admin.rekam_medis_rfid',);
+        $tipe = 'add';
+        return view('admin.rekam_medis_rfid',['tipe' => $tipe]);
     }
 
     public function create_rfid() 
     {
         $rfid_check = Rfid::latest()->first();
         $dokter = Dokter::get();
-        $kartu_pasien = Kartu_Pasien::get();
+        $kartu_pasien = Kartu_Pasien::with('pasien')->where('kode_kartu', $rfid_check->rfid)->first();
         $obat = Obat::get();
-        $poli = Poliklinik::get();
-        return view('admin.rekam_medis_add', ['rfid_check' => $rfid_check, 'dokter' => $dokter, 'kartu_pasien' => $kartu_pasien, 'obat' => $obat, 'poli' => $poli]);
+        return view('admin.rekam_medis_add', ['rfid_check' => $rfid_check, 'dokter' => $dokter, 'kartu_pasien' => $kartu_pasien, 'obat' => $obat]);
     }
 
     /**
@@ -59,7 +72,6 @@ class RekamController extends Controller
             'dokter_id' => 'required',
             'keluhan' => 'required',
             'diagnosa' => 'required',
-            'poliklinik_id' => 'required',
             'tgl_periksa' => 'required',
         ],
 
@@ -68,7 +80,6 @@ class RekamController extends Controller
             'dokter_id.required' => 'Form ini harus diisi !',
             'keluhan.required' => 'Form ini harus diisi !',
             'diagnosa.required' => 'Form ini harus diisi !',
-            'poliklinik_id.required' => 'Form ini harus diisi !',
             'tgl_periksa.required' => 'Form ini harus diisi !',
         ]);
     }
@@ -79,7 +90,6 @@ class RekamController extends Controller
             'dokter_id' => 'required',
             'keluhan' => 'required',
             'diagnosa' => 'required',
-            'poliklinik_id' => 'required',
             'tgl_periksa' => 'required',
         ],
 
@@ -87,7 +97,6 @@ class RekamController extends Controller
             'dokter_id.required' => 'Form ini harus diisi !',
             'keluhan.required' => 'Form ini harus diisi !',
             'diagnosa.required' => 'Form ini harus diisi !',
-            'poliklinik_id.required' => 'Form ini harus diisi !',
             'tgl_periksa.required' => 'Form ini harus diisi !',
         ]);
     }
@@ -96,7 +105,6 @@ class RekamController extends Controller
     {
         $current_date_time = Carbon::today()->toDateString();
         $this->_validation($request);
-
         //delete data id rfid yg baru terinput pada tabel rfid
         Rfid::truncate();
 
@@ -106,7 +114,6 @@ class RekamController extends Controller
         $rekam->keluhan = $request->keluhan; 
         $rekam->diagnosa = $request->diagnosa;
         $rekam->obat_id =  json_encode($request->obat_id);
-        $rekam->poliklinik_id = $request->poliklinik_id;
         $rekam->tgl_periksa = $request->tgl_periksa;
         $rekam->created_at = $current_date_time;
         $rekam->updated_at = $current_date_time;
@@ -134,13 +141,12 @@ class RekamController extends Controller
      */
     public function edit($id)
     {
-        $dokter = Dokter::get();
-        $kartu_pasien = Kartu_Pasien::get();
-        $obat = Obat::get();
-        $poli = Poliklinik::get();
         $rekam = Rekam_Medis::find($id);
+        $dokter = Dokter::get();
+        $kartu_pasien = Kartu_Pasien::with('pasien')->where('id', $rekam->kartu_pasien_id)->first();
+        $obat = Obat::get();
 
-        return view('admin.rekam_medis_edit', ['rekam' => $rekam, 'dokter' => $dokter, 'kartu_pasien' => $kartu_pasien, 'obat' => $obat, 'poli' => $poli]);
+        return view('admin.rekam_medis_edit', ['rekam' => $rekam, 'dokter' => $dokter, 'kartu_pasien' => $kartu_pasien, 'obat' => $obat]);
     }
 
     /**
@@ -153,7 +159,7 @@ class RekamController extends Controller
     public function update(Request $request, $id)
     {
         $this->_validation_update($request);
-        Rekam_Medis::where('id', $id)->update(['dokter_id' => $request->dokter_id, 'keluhan' => $request->keluhan, 'diagnosa' => $request->diagnosa, 'keluhan' => $request->keluhan, 'obat_id' => json_encode($request->obat_id), 'poliklinik_id' => $request->poliklinik_id, 'tgl_periksa' => $request->tgl_periksa]);
+        Rekam_Medis::where('id', $id)->update(['dokter_id' => $request->dokter_id, 'keluhan' => $request->keluhan, 'diagnosa' => $request->diagnosa, 'keluhan' => $request->keluhan, 'obat_id' => json_encode($request->obat_id), 'tgl_periksa' => $request->tgl_periksa]);
         Rfid::truncate();
         return redirect()->route('rekam_medis.index')->with('update_berhasil', 'Update data Berhasil dilakukan.'); 
     }

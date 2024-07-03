@@ -65,7 +65,7 @@
                                 <td>{{ $data->no_hp }}</td>
                                 <td>{{ $data->alamat }}</td>
                                 <td>{{ $data->bidang }}</td>
-                                <td class="text-left">
+                                <td class="text-center">
                                     <a href="{{ route('pasien.edit', $data->id) }}" class="badge badge-warning btn-edit">Edit</a>
                                     <a href="#" data-id="{{ $data->id }}" class="badge badge-danger swal-confirm">
                                         <form action="{{ route('pasien.destroy', $data->id) }}" id="delete{{ $data->id }}" method="POST">

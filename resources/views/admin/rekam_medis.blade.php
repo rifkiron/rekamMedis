@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-12">
                 @if (session('update_berhasil'))
-                <div class="alert alert-warning alert-dismissible show fade">
+                <div class="alert alert-warning alert-dismissible show text-left fade">
                     <div class="alert-body">
                         <button class="close" data-dismiss="alert">
                             <span>x</span>
@@ -33,14 +33,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-lg-1 mr-3">
                 <a class="btn btn-primary" href="{{ route('rekam_medis.create') }}">Tambah Data</a>
             </div>
-            <div class="col-12">
-                <hr>
-              <div class="card">
-                <div class="card-body p-0">
-                  <div class="table-responsive">
+            <div class="col-lg-1">
+                <form action="{{ route('rekam_medis.detail') }}" method="POST" style="display: inline-block;">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">
+                        Detail Rekam Medis By Card
+                    </button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
                     <table id="table_id" class="text-center table table-striped">
                         <thead>
                             <tr>
@@ -50,11 +58,10 @@
                                 <th>Keluhan</th>
                                 <th>Diagnosa</th>
                                 <th>Obat</th>
-                                <th>Poliklinik</th>
                                 <th>Tanggal Periksa</th>
                                 <th>Aksi</th>
                             </tr>
-                         </thead>
+                        </thead>
                         <tbody>
                             @foreach ($rekam as $no => $data)
                             <tr>
@@ -68,15 +75,13 @@
                                         {{ $value }},
                                     @endforeach
                                 </td>
-                              
-                                <td>{{ $data->poliklinik->nama }}</td>
                                 <td>{{ $data->tgl_periksa }}</td>
-                                <td class="text-left">
+                                <td class="text-center">
                                     <a href="{{ route('rekam_medis.edit', $data->id) }}" class="badge badge-warning btn-edit">Edit</a>
                                     <a href="#" data-id="{{ $data->id }}" class="badge badge-danger swal-confirm">
                                         <form action="{{ route('rekam_medis.destroy', $data->id) }}" id="delete{{ $data->id }}" method="POST">
-                                        @csrf
-                                        @method('delete')
+                                            @csrf
+                                            @method('delete')
                                         </form> 
                                         Hapus
                                     </a> 
@@ -88,8 +93,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+
     </div>
 @endsection
 

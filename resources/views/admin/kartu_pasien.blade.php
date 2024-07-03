@@ -73,7 +73,7 @@
                                 <td>{{ $no+1 }}</td>
                                 <td>{{ $data->pasien->nama }} | {{ $data->pasien->kode_rekam_medis }}</td>
                                 <td>{{ $data->kode_kartu }}</td>
-                                <td class="text-left">
+                                <td class="text-center">
                                     <a href="{{ route('kartu.edit', $data->id) }}" class="badge badge-warning btn-edit">Edit</a>
                                     <a href="#" data-id="{{ $data->id }}" class="badge badge-danger swal-confirm">
                                         <form action="{{ route('kartu.destroy', $data->id) }}" id="delete{{ $data->id }}" method="POST">

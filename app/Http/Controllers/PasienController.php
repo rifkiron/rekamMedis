@@ -52,7 +52,6 @@ class PasienController extends Controller
     private function _validation(Request $request){
         // validasi inputan dari form
         $validated = $request->validate([
-            'kode_rekam_medis' => 'required|unique:pasien', 
             'nama' => 'required',
             'usia' => 'required',
             'bidang' => 'required',
@@ -62,8 +61,6 @@ class PasienController extends Controller
         ],
 
         [
-            'kode_rekam_medis.required' => 'Form ini harus diisi !',
-            'kode_rekam_medis.unique' => 'ID Rekam Medis sudah terdaftar !',
             'nama.required' => 'Form ini harus diisi !',
             'usia.required' => 'Form ini harus diisi !',
             'bidang.required' => 'Form ini harus diisi !',
@@ -101,7 +98,6 @@ class PasienController extends Controller
         $current_date_time = Carbon::today()->toDateString();
 
         $pasien = new Pasien;
-        $pasien->kode_rekam_medis = $request->kode_rekam_medis;
         $pasien->nama = $request->nama;
         $pasien->usia = $request->usia;
         $pasien->bidang = $request->bidang;
@@ -148,7 +144,7 @@ class PasienController extends Controller
     public function update(Request $request, $id)
     {
         $this->_validation_update($request);
-        Pasien::where('id', $id)->update(['kode_rekam_medis' => $request->kode_rekam_medis, 'nama' => $request->nama, 'usia' => $request->usia, 'bidang' => $request->bidang, 'no_hp' => $request->no_hp, 'alamat' => $request->alamat, 'tgl_daftar' => $request->tgl_daftar]);
+        Pasien::where('id', $id)->update(['nama' => $request->nama, 'usia' => $request->usia, 'bidang' => $request->bidang, 'no_hp' => $request->no_hp, 'alamat' => $request->alamat, 'tgl_daftar' => $request->tgl_daftar]);
         return redirect()->route('pasien.index')->with('update_berhasil', 'Update Data Berhasil'); 
     }
 

@@ -53,20 +53,34 @@
 <script>
     $(document).ready(function(){
         //realtime get data from file rfid.blade.php
-        setInterval(function() {
-            $.ajax({
-            async: false,
-            cache: false,
-            url: `create/rfid/get_rfid`, 
-            type: "GET",
-            dataType:"text",
-            success: function(data) { 
-                location.href = "create/rfid";
-            }
-        });
+        @if ($tipe == 'detail')
+            setInterval(function() {
+                $.ajax({
+                async: false,
+                cache: false,
+                url: `create/rfid/get_rfid`, 
+                type: "GET",
+                dataType:"text",
+                success: function(data) { 
+                    location.href = "detail/rfid";
+                }
+            });
 
-		}, 2000);
-
+            }, 2000);
+        @else
+            setInterval(function() {
+                $.ajax({
+                async: false,
+                cache: false,
+                url: `create/rfid/get_rfid`, 
+                type: "GET",
+                dataType:"text",
+                success: function(data) { 
+                    location.href = "create/rfid";
+                }
+            });
+            }, 2000);
+        @endif
     });
 </script>
 @endpush

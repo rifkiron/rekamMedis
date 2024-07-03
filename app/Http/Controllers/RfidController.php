@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pasien;
+use App\Models\Rfid;
+use App\Events\RfidDataReceived;
 use Illuminate\Http\Request;
 
 class RfidController extends Controller
@@ -14,7 +15,7 @@ class RfidController extends Controller
         ]);
         
         
-        $rfidData = new RfidData();
+        $rfidData = new Rfid();
         $rfidData->rfid = $request->rfid;
         $rfidData->save();
 

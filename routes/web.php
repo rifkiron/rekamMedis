@@ -22,16 +22,21 @@ use App\Http\Controllers\PasienController;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard.index'); 
     Route::resource('pasien', 'PasienController');
+    
     Route::resource('dokter', 'DokterController');  
     Route::resource('poliklinik', 'PoliklinikController'); 
     Route::resource('obat', 'ObatController');
     Route::resource('kartu', 'KartuController');
-    Route::resource('rekam_medis', 'RekamController'); 
+    Route::resource('rekam_medis', 'RekamController');
+    Route::post('rekam_medis/detail', 'RekamController@detail')->name('rekam_medis.detail');
+
+    
+    Route::get('rekam_medis/detail/rfid', 'RekamController@detail_rfid'); 
     Route::get('rekam_medis/create/rfid', 'RekamController@create_rfid'); 
     //get rfid untuk tambah data kartu pasien
-    Route::get('kartu_pasien/rfid/get_rfid', 'KartuController@get_rfid'); 
+    Route::get('kartu/rfid/get_rfid', 'KartuController@get_rfid'); 
     //get rfid untuk edit data kartu pasien
-    Route::get('kartu_pasien/{id}/rfid/get_rfid', 'KartuController@get_rfid_edit'); 
+    Route::get('kartu/{id}/rfid/get_rfid', 'KartuController@get_rfid_edit'); 
     //get rfid untuk tambah data rekam medis
     Route::get('rekam_medis/create/rfid/get_rfid', 'KartuController@get_rfid'); 
 
