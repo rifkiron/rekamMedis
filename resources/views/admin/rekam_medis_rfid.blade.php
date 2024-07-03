@@ -40,6 +40,21 @@
 @endpush
 
 @section('content')
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible show text-center fade" style="font-weight: bold">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                    <span>x</span>
+                </button>
+                <div class="container">
+                    <div class="col-12">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            </div>  
+        </div>
+    @endif
+
     <div class="header">
         <div class="title">Data Rekam Medis by Tap RFID Card</div>
     </div>
