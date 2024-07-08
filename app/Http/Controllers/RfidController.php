@@ -11,6 +11,7 @@ class RfidController extends Controller
 {
     public function store(Request $request)
     {
+        //RIFKY EDITED
         $request->validate([
             'rfid' => ['required'],
         ]);
@@ -28,5 +29,6 @@ class RfidController extends Controller
             return response()->json(['message' => 'Data saved successfully',
                                      'nama' => $kartu_pasien->pasien->nama]);
         }
+        //RIFKY EDITED
     }
 }

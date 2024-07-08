@@ -33,6 +33,7 @@ class RekamController extends Controller
     }
 
     public function detail_rfid(){
+        //RIFKY EDITED
         $rfid_check = Rfid::latest()->first();
         $kartu_pasien = Kartu_Pasien::with('pasien')->where('kode_kartu', $rfid_check->rfid)->first();
         if ($kartu_pasien == null){
@@ -41,6 +42,7 @@ class RekamController extends Controller
         }
         $rekam = Rekam_Medis::with('dokter')->where('kartu_pasien_id', $kartu_pasien->id)->get();
         return view('admin.rekam-medis-detail', ['rekam' => $rekam, 'kartu_pasien' => $kartu_pasien]);
+        //RIFKY EDITED
     }
     /**
      * Show the form for creating a new resource.
@@ -55,6 +57,7 @@ class RekamController extends Controller
 
     public function create_rfid() 
     {
+        //RIFKY EDITED
         $rfid_check = Rfid::latest()->first();
         $dokter = Dokter::get();
         $kartu_pasien = Kartu_Pasien::with('pasien')->where('kode_kartu', $rfid_check->rfid)->first();
@@ -64,6 +67,7 @@ class RekamController extends Controller
         }
         $obat = Obat::get();
         return view('admin.rekam_medis_add', ['rfid_check' => $rfid_check, 'dokter' => $dokter, 'kartu_pasien' => $kartu_pasien, 'obat' => $obat]);
+        //RIFKY EDITED
     }
 
     /**

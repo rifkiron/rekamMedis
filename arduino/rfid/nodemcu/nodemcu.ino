@@ -36,7 +36,6 @@ void setup() {
 }
 
 void loop() {
-  // Kirim permintaan data ke Arduino
 
   // Terima data dari Arduino
   while (mcu.available()) {
@@ -65,6 +64,8 @@ void sendDataToServer(String data) {
   if (WiFi.status() == WL_CONNECTED) {
     WiFiClient client;
     HTTPClient http;
+
+    //RIFKY EDITED
     Serial.println("MASUK KE SEND TO DATA SERVER");
 
     String boundary = "---------------------------" + String(random(0xffffff), HEX);
@@ -94,6 +95,7 @@ void sendDataToServer(String data) {
       Serial.print("Error pada HTTP request: ");
       Serial.println(httpResponseCode);
     }
+    //RIFKY EDITED
 
     http.end(); 
   } else {
@@ -101,6 +103,7 @@ void sendDataToServer(String data) {
   }
 }
 
+//RIFKY EDITED
 String filterRFIDData(String data) {
   String filteredData = "";
   bool isRfidData = false;
@@ -120,4 +123,5 @@ String filterRFIDData(String data) {
 
   return filteredData;
 }
+//RIFKY EDITED
 

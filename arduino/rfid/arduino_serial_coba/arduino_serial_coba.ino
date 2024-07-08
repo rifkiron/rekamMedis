@@ -70,6 +70,7 @@ void loop() {
 
     // Check if RFID card is detected
     // Jika RFID card terdeteksi
+    // Rifky EDITED
     if (rfid.isCard()) {
       if (rfid.readCardSerial()) {
         lcd.clear();
@@ -116,6 +117,7 @@ void loop() {
         lcd.clear();
       }
     }
+    // Rifky EDITED
   }
 }
 
